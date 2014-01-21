@@ -1,0 +1,130 @@
+/**
+ * Creates a rope data structure
+ *
+ * @param {String} str - String to populate the rope.
+ * @api public
+ */
+
+function Rope(str) {
+  // allow usage without `new`
+  if (!(this instanceof Rope)) return new Rope(str);
+
+  this._value = str;
+  this.length = str.length;
+  adjust.call(this);
+}
+
+/**
+ * The threshold used to split a leaf node into two child nodes.
+ */
+
+Rope.SPLIT_LENGTH = 1000;
+
+/**
+ * The threshold used to join two child nodes into one leaf node.
+ */
+
+Rope.JOIN_LENGTH = 500;
+
+/**
+ * Adjusts the tree structure, so that very long nodes are split
+ * and short ones are joined
+ *
+ * @api private
+ */
+
+function adjust() {
+  if (typeof this._value != 'undefined') {
+    if (this.length > Rope.SPLIT_LENGTH) {
+      var divide = Math.floor(this.length / 2);
+      this._left = new Rope(this._value.substring(0, divide));
+      this._right = new Rope(this._value.substring(divide));
+      delete this._value;
+    }
+  } else {
+    if (this.length < Rope.JOIN_LENGTH) {
+      this._value = this._left.toString() + this._right.toString();
+      delete this._left;
+      delete this._right;
+    }
+  }
+}
+
+/**
+ * Converts the rope into a single string
+ *
+ * @api public
+ */
+
+Rope.prototype.toString = function() {
+  if (typeof this._value != 'undefined') {
+    return this._value;
+  } else {
+    return this._left.toString() + this._right.toString();
+  }
+}
+
+/**
+ * Removes text from the rope between the `start` and `end` positions.
+ * The character at `start` gets removed, but the character at `end` is 
+ * not removed.
+ *
+ * @param {Number} start - Initial position (inclusive)
+ * @param {Number} end - Final position (not-inclusive)
+ * @api public
+ */
+
+Rope.prototype.remove = function(start, end) {
+  if (start < 0 || start > this.length) throw new RangeError('Start is not within rope bounds.');
+  if (end < 0 || end > this.length) throw new RangexError('End is not within rope bounds.');
+  if (start > end) throw new RangexError('Start is greater than end.');
+  if (typeof this._value != 'undefined') {
+    this._value = this._value.substring(0, start) + this._value.substring(end);
+    this.length = this._value.length;
+  } else {
+    var leftLength = this._left.length();
+    var leftStart = Math.min(start, leftLength);
+    var leftEnd = Math.min(end, leftLength);
+    var rightLength = this._right.length();
+    var rightStart = Math.max(0, Math.min(start - leftLength, rightLength));
+    var rightEnd = Math.max(0, Math.min(end - leftLength, rightLength));
+    if (leftStart < leftLength) {
+      this._left.remove(leftStart, leftEnd);
+    }
+    if (rightEnd > 0) {
+      this._right.remove(rightStart, rightEnd);
+    }
+    this.length = this._left.length() + this._right.length();
+  }
+  adjust.call(this);
+}
+
+/**
+ * Inserts text into the rope on the specified position.
+ *
+ * @param {Number} position - Where to insert the text
+ * @param {String} value - Text to be inserted on the rope
+ * @api public
+ */
+
+Rope.prototype.insert = function(position, value) {
+  if (typeof value != 'string') {
+    value = value.toString();
+  }
+  if (position < 0 || position > this.length) throw new RangeError('position is not within rope bounds.');
+  if (typeof this._value != 'undefined') {
+    this._value = this._value.substring(0, position) + value.toString() + this._value.substring(position);
+    this.length = this._value.length;
+  } else {
+    var leftLength = this._left.length();
+    if (position < leftLength) {
+      this._left.insert(position, value);
+      this.length = this._left.length() + this._right.length();
+    } else {
+      this._right.insert(position - leftLength, value);
+    }
+  }
+  adjust.call(this);
+}
+
+module.exports = Rope;

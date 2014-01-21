@@ -1,0 +1,14 @@
+{
+  "name": "rope",
+  "repo": "component/rope",
+  "description": "efficient data structure for large mutable strings",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
