@@ -63,7 +63,7 @@ function adjust() {
 }
 
 /**
- * Converts the rope into a single string
+ * Converts the rope to a JavaScript String.
  *
  * @api public
  */

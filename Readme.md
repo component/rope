@@ -37,7 +37,7 @@ Creates a `Rope` data structure, and initializes it with the string `str`.
 
 ### Rope#toString()
 
-Converts the entire rope to a single string.
+Converts the entire rope to a JavaScript String.
 
 ### Rope#remove(start, end)
 
