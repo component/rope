@@ -1,7 +1,7 @@
 
 # rope
 
-  `rope` is an implementation of the [rope data structure](https://en.wikipedia.org/wiki/Rope (data structure)) in JavaScript.
+  `rope` is an implementation of the [rope data structure](https://en.wikipedia.org/wiki/Rope_%28data_structure%29) in JavaScript.
 
   A rope is an efficient data structure for storing and manipulating very large mutable strings. 
   It reduces memory reallocation and data copy overhead for applications that are constantly operating on very large strings
