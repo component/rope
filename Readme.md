@@ -53,6 +53,26 @@ Inserts `text` at `position`.
 
 Total length of the rope in characters.
 
+### Rope#rebuild()
+
+Rebuilds the entire rope structure, producing a perfectly balanced binary tree. (Resouce intensive operation)
+
+### Rope#rebalance()
+
+Walks on rope structure, finding unbalanced nodes and rebuilding them. (This is usually a less resouce intensive operation than `Rope#rebuild()`, but is still resource intensive.)
+
+### Rope.SPLIT_LENGTH
+
+The threshold used to split a leaf node into two child nodes.
+
+### Rope.JOIN_LENGTH
+
+The threshold used to join two child nodes into one leaf node.
+
+### Rope.REBALANCE_RATIO
+
+The threshold used to trigger a tree node rebuild when rebalancing the rope.
+
 ## License
 
   The MIT License (MIT)

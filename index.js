@@ -16,15 +16,27 @@ function Rope(str) {
 
 /**
  * The threshold used to split a leaf node into two child nodes.
+ *
+ * @api public
  */
 
 Rope.SPLIT_LENGTH = 1000;
 
 /**
  * The threshold used to join two child nodes into one leaf node.
+ *
+ * @api public
  */
 
 Rope.JOIN_LENGTH = 500;
+
+/**
+ * The threshold used to trigger a tree node rebuild when rebalancing the rope.
+ *
+ * @api public
+ */
+
+Rope.REBALANCE_RATIO = 1.2;
 
 /**
  * Adjusts the tree structure, so that very long nodes are split
@@ -125,6 +137,39 @@ Rope.prototype.insert = function(position, value) {
     }
   }
   adjust.call(this);
+}
+
+/**
+ * Rebuilds the entire rope structure, producing a balanced tree.
+ *
+ * @api public
+ */
+
+Rope.prototype.rebuild = function() {
+  if (typeof this._value == 'undefined') {
+    this._value = this._left.toString() + this._right.toString();
+    delete this._left;
+    delete this._right;
+    adjust.call(this);
+  }
+}
+
+/**
+ * Finds unbalanced nodes in the tree and rebuilds them.
+ *
+ * @api public
+ */
+
+Rope.prototype.rebalance = function() {
+  if (typeof this._value == 'undefined') {
+    if (this._left.length / this._right.length > Rope.REBALANCE_RATIO ||
+        this._right.length / this._left.length > Rope.REBALANCE_RATIO) {
+      this.rebuild();
+    } else {
+      this._left.rebalance();
+      this._right.rebalance();
+    }
+  }
 }
 
 module.exports = Rope;
