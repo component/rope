@@ -209,4 +209,17 @@ Rope.prototype.substring = function(start, end) {
   }
 }
 
+/**
+ * Returns a string of `length` characters from the rope, starting
+ * at the `start` position.
+ *
+ * @param {Number} start - Initial position (inclusive)
+ * @param {Number} length - Size of the string to return
+ * @api public
+ */
+
+Rope.prototype.substr = function(start, length) {
+  return this.substring(start, start + length);
+}
+
 module.exports = Rope;

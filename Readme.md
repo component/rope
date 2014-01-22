@@ -65,6 +65,10 @@ Walks on rope structure, finding unbalanced nodes and rebuilding them. (This is 
 
 Returns text from the rope between the `start` and `end` positions. The character at `start` gets returned, but the character at `end` is not returned.
 
+### Rope#substr()
+
+Returns a string of `length` characters from the rope, starting at the `start` position.
+
 ### Rope.SPLIT_LENGTH
 
 The threshold used to split a leaf node into two child nodes.
