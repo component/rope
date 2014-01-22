@@ -172,4 +172,41 @@ Rope.prototype.rebalance = function() {
   }
 }
 
+/**
+ * Returns text from the rope between the `start` and `end` positions.
+ * The character at `start` gets returned, but the character at `end` is 
+ * not returned.
+ *
+ * @param {Number} start - Initial position (inclusive)
+ * @param {Number} end - Final position (not-inclusive)
+ * @api public
+ */
+
+Rope.prototype.substring = function(start, end) {
+  if (typeof this._value != 'undefined') {
+    return this._value.substring(start, end);
+  } else {
+    var leftLength = this._left.length;
+    var leftStart = Math.min(start, leftLength);
+    var leftEnd = Math.min(end, leftLength);
+    var rightLength = this._right.length;
+    var rightStart = Math.max(0, Math.min(start - leftLength, rightLength));
+    var rightEnd = Math.max(0, Math.min(end - leftLength, rightLength));
+
+    if (leftStart != leftEnd) {
+      if (rightStart != rightEnd) {
+        return this._left.substring(leftStart, leftStart) + return this._right.substring(rightStart, rightEnd);
+      } else {
+        return this._left.substring(leftStart, leftEnd);
+      }
+    } else {
+      if (rightStart != rightEnd) {      
+        return this._right.substring(rightStart, rightEnd);
+      } else {
+        return '';
+      }
+    }
+  }
+}
+
 module.exports = Rope;
