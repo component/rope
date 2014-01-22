@@ -183,6 +183,19 @@ Rope.prototype.rebalance = function() {
  */
 
 Rope.prototype.substring = function(start, end) {
+  if (typeof end == 'undefined') {
+    end = this.length;
+  }
+  if (start < 0 || isNaN(start)) {
+    start = 0;
+  } else if (start > this.length) {
+    start = this.length;
+  }
+  if (end < 0 || isNaN(end)) {
+    end = 0;
+  } else if (end > this.length) {
+    end = this.length;
+  }
   if (typeof this._value != 'undefined') {
     return this._value.substring(start, end);
   } else {
