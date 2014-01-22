@@ -61,11 +61,11 @@ Rebuilds the entire rope structure, producing a perfectly balanced binary tree. 
 
 Walks on rope structure, finding unbalanced nodes and rebuilding them. (This is usually a less resouce intensive operation than `Rope#rebuild()`, but is still resource intensive.)
 
-### Rope#substring()
+### Rope#substring(start, end)
 
 Returns text from the rope between the `start` and `end` positions. The character at `start` gets returned, but the character at `end` is not returned.
 
-### Rope#substr()
+### Rope#substr(start, length)
 
 Returns a string of `length` characters from the rope, starting at the `start` position.
 
