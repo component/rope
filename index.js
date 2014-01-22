@@ -94,10 +94,10 @@ Rope.prototype.remove = function(start, end) {
     this._value = this._value.substring(0, start) + this._value.substring(end);
     this.length = this._value.length;
   } else {
-    var leftLength = this._left.length();
+    var leftLength = this._left.length;
     var leftStart = Math.min(start, leftLength);
     var leftEnd = Math.min(end, leftLength);
-    var rightLength = this._right.length();
+    var rightLength = this._right.length;
     var rightStart = Math.max(0, Math.min(start - leftLength, rightLength));
     var rightEnd = Math.max(0, Math.min(end - leftLength, rightLength));
     if (leftStart < leftLength) {
@@ -106,7 +106,7 @@ Rope.prototype.remove = function(start, end) {
     if (rightEnd > 0) {
       this._right.remove(rightStart, rightEnd);
     }
-    this.length = this._left.length() + this._right.length();
+    this.length = this._left.length + this._right.length;
   }
   adjust.call(this);
 }
@@ -128,10 +128,10 @@ Rope.prototype.insert = function(position, value) {
     this._value = this._value.substring(0, position) + value.toString() + this._value.substring(position);
     this.length = this._value.length;
   } else {
-    var leftLength = this._left.length();
+    var leftLength = this._left.length;
     if (position < leftLength) {
       this._left.insert(position, value);
-      this.length = this._left.length() + this._right.length();
+      this.length = this._left.length + this._right.length;
     } else {
       this._right.insert(position - leftLength, value);
     }
