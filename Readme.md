@@ -69,6 +69,14 @@ Returns text from the rope between the `start` and `end` positions. The characte
 
 Returns a string of `length` characters from the rope, starting at the `start` position.
 
+### Rope#charAt(position)
+
+Returns the character at `position`.
+
+### Rope#charCodeAt(position)
+
+Returns the code of the character at `position`.
+
 ### Rope.SPLIT_LENGTH
 
 The threshold used to split a leaf node into two child nodes.

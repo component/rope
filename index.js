@@ -247,4 +247,26 @@ Rope.prototype.substr = function(start, length) {
   return this.substring(start, end);
 }
 
+/**
+ * Returns the character at `position`
+ *
+ * @param {Number} position
+ * @api public
+ */
+
+Rope.prototype.charAt = function(position) {
+  return this.substring(position, position + 1);
+}
+
+/**
+ * Returns the code of the character at `position`
+ *
+ * @param {Number} position
+ * @api public
+ */
+
+Rope.prototype.charCodeAt = function(position) {
+  return this.substring(position, position + 1).charCodeAt(0);
+}
+
 module.exports = Rope;
