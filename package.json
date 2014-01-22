@@ -1,0 +1,22 @@
+{
+  "name": "component-rope",
+  "version": "0.0.1",
+  "description": "efficient data structure for large mutable strings",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/component/rope.git"
+  },
+  "keywords": [
+    "rope",
+    "string",
+    "data",
+    "structure"
+  ],
+  "author": "Automattic, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/component/rope/issues"
+  },
+  "homepage": "https://github.com/component/rope"
+}
