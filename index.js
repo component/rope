@@ -195,7 +195,7 @@ Rope.prototype.substring = function(start, end) {
 
     if (leftStart != leftEnd) {
       if (rightStart != rightEnd) {
-        return this._left.substring(leftStart, leftStart) + return this._right.substring(rightStart, rightEnd);
+        return this._left.substring(leftStart, leftStart) + this._right.substring(rightStart, rightEnd);
       } else {
         return this._left.substring(leftStart, leftEnd);
       }
