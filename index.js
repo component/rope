@@ -232,7 +232,19 @@ Rope.prototype.substring = function(start, end) {
  */
 
 Rope.prototype.substr = function(start, length) {
-  return this.substring(start, start + length);
+  var end;
+  if (start < 0) {
+    start = this.length + start;
+    if (start < 0) {
+      start = 0;
+    }
+  }
+  if (typeof length == 'undefined') {
+    end = this.length;
+  } else {
+    end = start + length;
+  }
+  return this.substring(start, end);
 }
 
 module.exports = Rope;
