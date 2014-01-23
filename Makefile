@@ -8,4 +8,8 @@ components: component.json
 clean:
 	rm -fr build components template.js
 
-.PHONY: clean
+test:
+	(sleep 2; open http://localhost:8080/__zuul) &
+	zuul --local 8080 --ui mocha-bdd -- test/rope.js
+
+.PHONY: clean test
