@@ -69,4 +69,22 @@ describe('Rope', function() {
       rope.JOIN_LENGTH = jl;
     });
   });
+  
+  describe('joining', function() {
+    it('should join nodes under JOIN_LENGTH', function() {
+      // force adjust by removing nothing
+      r.remove(0, 0);
+
+      // value check
+      assert(r == s);
+
+      // structure checks
+      assert(typeof r._value != 'undefined');
+      assert(typeof r._left == 'undefined');
+      assert(typeof r._right == 'undefined');
+
+      // length check
+      assert(r.length == s.length);
+    });
+  });
 });
