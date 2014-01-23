@@ -87,4 +87,38 @@ describe('Rope', function() {
       assert(r.length == s.length);
     });
   });
+
+  describe('substring()', function() {
+    it('should behave like native substring', function() {
+      for (var i = -100; i < 100; i++) {
+        for (var j = -100; j < 100; j++) {
+          assert(r.substring(i, j) == s.substring(i, j));
+        }
+      }
+
+      // store old values
+      var sl = rope.SPLIT_LENGTH;
+      var jl = rope.JOIN_LENGTH;
+
+      // set new values
+      rope.SPLIT_LENGTH = 4;
+      rope.JOIN_LENGTH = 2;
+
+      // force adjust by removing nothing
+      r.remove(0, 0);
+
+      for (var i = -100; i < 100; i++) {
+        for (var j = -100; j < 100; j++) {
+          assert(r.substring(i, j) == s.substring(i, j));
+        }
+      }
+
+      // restore old values
+      rope.SPLIT_LENGTH = sl;
+      rope.JOIN_LENGTH = jl;
+
+      // force adjust by removing nothing
+      r.remove(0, 0);
+    });
+  });
 });
