@@ -242,6 +242,9 @@ Rope.prototype.substr = function(start, length) {
   if (typeof length == 'undefined') {
     end = this.length;
   } else {
+    if (length < 0) {
+      length = 0;
+    }
     end = start + length;
   }
   return this.substring(start, end);
