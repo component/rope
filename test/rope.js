@@ -1,5 +1,13 @@
-var rope = require('../index.js');
+/**
+ * Module Dependencies
+ */
+
+var rope = require('rope');
 var assert = require('assert');
+
+/**
+ * Tests
+ */
 
 describe('Rope', function() {
   var r, s = 'hello world';
@@ -26,7 +34,7 @@ describe('Rope', function() {
       // set new values
       rope.SPLIT_LENGTH = 4;
       rope.JOIN_LENGTH = 2;
-      
+
       // force adjust by removing nothing
       r.remove(0, 0);
 
@@ -69,7 +77,7 @@ describe('Rope', function() {
       rope.JOIN_LENGTH = jl;
     });
   });
-  
+
   describe('joining', function() {
     it('should join nodes under JOIN_LENGTH', function() {
       // force adjust by removing nothing

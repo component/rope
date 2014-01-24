@@ -3,13 +3,13 @@
 
   `rope` is an implementation of the [rope data structure](https://en.wikipedia.org/wiki/Rope_%28data_structure%29) in JavaScript.
 
-  A rope is an efficient data structure for storing and manipulating very large mutable strings. 
+  A rope is an efficient data structure for storing and manipulating very large mutable strings.
   It reduces memory reallocation and data copy overhead for applications that are constantly operating on very large strings
   by splitting them into multiple smaller strings transparently. Efficient random access is achieved via a binary tree.
 
   The following table outlines the computational complexity of various operations over strings and ropes of length **n**.
 
-  Operation                                    | Regular JavaScript String                     | Rope 
+  Operation                                    | Regular JavaScript String                     | Rope
   ---------------------------------------------|-----------------------------------------------|------------
   Initialization                               | **O(n)**                                      | **O(n)**
   Removal of **m** characters                  | **O(n)**                                      | **O(m)**
@@ -88,6 +88,13 @@ The threshold used to join two child nodes into one leaf node.
 ### Rope.REBALANCE_RATIO
 
 The threshold used to trigger a tree node rebuild when rebalancing the rope.
+
+## Run Tests
+
+```
+npm install component-test
+make test
+```
 
 ## License
 

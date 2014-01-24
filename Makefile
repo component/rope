@@ -9,7 +9,6 @@ clean:
 	rm -fr build components template.js
 
 test:
-	(sleep 2; open http://localhost:8080/__zuul) &
-	zuul --local 8080 --ui mocha-bdd -- test/rope.js
+	@./node_modules/.bin/component-test browser
 
 .PHONY: clean test
