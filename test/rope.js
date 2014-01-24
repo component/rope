@@ -5,6 +5,19 @@
 var rope = require('rope');
 var assert = require('assert');
 
+var SPLIT_LENGTH = rope.SPLIT_LENGTH;
+var JOIN_LENGTH = rope.JOIN_LENGTH;
+
+function setLowThresholds() {
+  rope.SPLIT_LENGTH = 4;
+  rope.JOIN_LENGTH = 2;
+}
+
+function setDefaultThresholds() {
+  rope.SPLIT_LENGTH = SPLIT_LENGTH;
+  rope.JOIN_LENGTH = JOIN_LENGTH;
+}
+
 /**
  * Tests
  */
@@ -13,7 +26,7 @@ describe('Rope', function() {
   var r, s = 'hello world';
 
   describe('basic operation', function() {
-    it('should be created', function() {
+    beforeEach(function() {
       r = rope(s);
     });
     it('should match the native string in length', function() {
@@ -24,19 +37,17 @@ describe('Rope', function() {
     });
   });
 
-  describe('splitting', function() {
+  describe('splitting/joining', function() {
     it ('should split nodes over SPLIT_LENGTH', function() {
 
-      // store old values
-      var sl = rope.SPLIT_LENGTH;
-      var jl = rope.JOIN_LENGTH;
+      r = rope(s);
 
-      // set new values
-      rope.SPLIT_LENGTH = 4;
-      rope.JOIN_LENGTH = 2;
+      setLowThresholds();
 
       // force adjust by removing nothing
       r.remove(0, 0);
+
+      console.log(r);
 
       // value check
       assert(r == s);
@@ -72,14 +83,17 @@ describe('Rope', function() {
       assert(r._right._left.length == Math.floor((s.length - Math.floor(s.length / 2)) / 2));
       assert(r._right._right.length == (s.length - Math.floor(s.length / 2)) - Math.floor((s.length - Math.floor(s.length / 2)) / 2));
 
-      // restore old values
-      rope.SPLIT_LENGTH = sl;
-      rope.JOIN_LENGTH = jl;
+      setDefaultThresholds();
     });
-  });
 
-  describe('joining', function() {
     it('should join nodes under JOIN_LENGTH', function() {
+
+      setLowThresholds();
+
+      r = rope(s);
+
+      setDefaultThresholds();
+
       // force adjust by removing nothing
       r.remove(0, 0);
 
@@ -96,55 +110,40 @@ describe('Rope', function() {
     });
   });
 
-  describe('substring()', function() {
-    it('should behave like native substring', function() {
-      for (var i = -100; i < 100; i++) {
-        for (var j = -100; j < 100; j++) {
-          assert(r.substring(i, j) == s.substring(i, j));
-        }
-      }
-
-      // store old values
-      var sl = rope.SPLIT_LENGTH;
-      var jl = rope.JOIN_LENGTH;
-
-      // set new values
-      rope.SPLIT_LENGTH = 4;
-      rope.JOIN_LENGTH = 2;
-
-      // force adjust by removing nothing
-      r.remove(0, 0);
-
-      for (var i = -100; i < 100; i++) {
-        for (var j = -100; j < 100; j++) {
-          assert(r.substring(i, j) == s.substring(i, j));
-        }
-      }
-
-      // restore old values
-      rope.SPLIT_LENGTH = sl;
-      rope.JOIN_LENGTH = jl;
-
-      // force adjust by removing nothing
-      r.remove(0, 0);
+  describe('substrings', function() {
+    beforeEach(function() {
+      r = rope(s);
     });
-  });
 
-  describe('substr()', function() {
-    it('should behave like native substr', function() {
+    it('substring() should behave like native substring()', function() {
+      for (var i = -100; i < 100; i++) {
+        for (var j = -100; j < 100; j++) {
+          assert(r.substring(i, j) == s.substring(i, j));
+        }
+      }
+
+      setLowThresholds();
+
+      // force adjust by removing nothing
+      r.remove(0, 0);
+
+      for (var i = -100; i < 100; i++) {
+        for (var j = -100; j < 100; j++) {
+          assert(r.substring(i, j) == s.substring(i, j));
+        }
+      }
+
+      setDefaultThresholds();
+    });
+
+    it('substr() should behave like native substr()', function() {
       for (var i = -100; i < 100; i++) {
         for (var j = -100; j < 100; j++) {
           assert(r.substr(i, j) == s.substr(i, j));
         }
       }
 
-      // store old values
-      var sl = rope.SPLIT_LENGTH;
-      var jl = rope.JOIN_LENGTH;
-
-      // set new values
-      rope.SPLIT_LENGTH = 4;
-      rope.JOIN_LENGTH = 2;
+      setLowThresholds()
 
       // force adjust by removing nothing
       r.remove(0, 0);
@@ -155,9 +154,7 @@ describe('Rope', function() {
         }
       }
 
-      // restore old values
-      rope.SPLIT_LENGTH = sl;
-      rope.JOIN_LENGTH = jl;
+      setDefaultThresholds();
 
       // force adjust by removing nothing
       r.remove(0, 0);
